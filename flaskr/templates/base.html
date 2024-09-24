@@ -1,0 +1,40 @@
+<!-- Each page in the application will have the same basic layout around a different body. Instead of writing the entire HTML structure in each template, each template will extend a base template and override specific sections. -->
+
+<!doctype html>
+<html lang="en">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>{% block title %}{% endblock %} - HCI Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <section class="nav-fixed">
+        
+            <nav class="topnav navbar navbar-expand shadow justify-content-between justify-content-sm-start navbar-light bg-white"
+                id="sidenavAccordion">
+                <h1>HCI Project</h1>
+                <ul>
+                    {% if g.user %}
+                    <li><span>{{ g.user['username'] }}</span>
+                    <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+                        {% else %}
+                    <li><a href="{{ url_for('auth.register') }}">Register</a>
+                    <li><a href="{{ url_for('auth.login') }}">Log In</a>
+                        {% endif %}
+                </ul>
+            </nav>
+
+       
+    </section>
+    <section class="content">
+        
+        <body class="container-fluid">
+            
+        </body>
+        {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+        {% endfor %}
+        {% block content %}{% endblock %}
+    </section>
+</html>
